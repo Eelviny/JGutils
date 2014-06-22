@@ -54,11 +54,11 @@ public class TeleportAction {
                             if(sender.hasPermission("jgutils.teleport.norequest")){
                                 p.teleport(to.getLocation());
                             }else{
-                                if(pendingRequests.containsKey(p))
-                                    pendingRequests.get(p).add(new Request(p, to));
+                                if(pendingRequests.containsKey(to))
+                                    pendingRequests.get(to).add(new Request(p, to));
                                 else{
-                                    pendingRequests.put(p, new ArrayList<Request>());
-                                    pendingRequests.get(p).add(new Request(p, to));
+                                    pendingRequests.put(to, new ArrayList<Request>());
+                                    pendingRequests.get(to).add(new Request(p, to));
                                 }
                                 sender.sendMessage(SEND_MESSAGE.replace("%p%", to.getName()));
                                 to.sendMessage(FROM_OTHER_SEND_MESSAGE.replace("%p%", p.getName()));
@@ -73,13 +73,13 @@ public class TeleportAction {
                                 if(sender.hasPermission("jgutils.teleport.norequest")){
                                     going.teleport(to.getLocation());
                                 }else{
-                                    if(pendingRequests.containsKey(p))
-                                        pendingRequests.get(p).add(new Request(going, to));
-                                    else{
-                                        pendingRequests.put(p, new ArrayList<Request>());
-                                        pendingRequests.get(p).add(new Request(going, to));
-                                    }
                                     Player other = going == p ? to : going;
+                                    if(pendingRequests.containsKey(other))
+                                        pendingRequests.get(other).add(new Request(going, to));
+                                    else{
+                                        pendingRequests.put(other, new ArrayList<Request>());
+                                        pendingRequests.get(other).add(new Request(going, to));
+                                    }
                                     sender.sendMessage(SEND_MESSAGE.replace("%p%", other.getName()));
                                     if(other == going) 
                                         other.sendMessage(TO_OTHER_SEND_MESSAGE.replace("%p%", p.getName()));
@@ -98,6 +98,7 @@ public class TeleportAction {
                         if(pendingRequests.containsKey(p) && !pendingRequests.get(p).isEmpty()){
                             Request r = pendingRequests.get(p).get(0);
                             r.getGoing().teleport(r.getTo().getLocation());
+                            pendingRequests.get(p).remove(r);
                             Player other = r.getGoing() == p ? r.getTo() : r.getGoing();
                             sender.sendMessage(ACCEPT_MESSAGE.replace("%p%", other.getName()));
                             if(other == r.getGoing()) 
@@ -116,6 +117,7 @@ public class TeleportAction {
                             Request r = pendingRequests.get(p).get(0);
                             pendingRequests.get(p).remove(r);
                             r.getGoing().teleport(r.getTo().getLocation());
+                            pendingRequests.get(p).remove(r);
                             Player other = r.getGoing() == p ? r.getTo() : r.getGoing();
                             sender.sendMessage(DENY_MESSAGE.replace("%p%", other.getName()));
                             other.sendMessage(OTHER_DENY_MESSAGE.replace("%p%", p.getName()));
