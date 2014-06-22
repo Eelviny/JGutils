@@ -15,7 +15,7 @@ import co.justgame.jgutil.main.JGutils;
 
 public class PlayerFile {
     public static void savePlayerFile(Player p){
-        File pf = createPlayerFile(p.getName(), true);
+        File pf = createPlayerFile(p.getUniqueId().toString(), true);
         FileConfiguration config = YamlConfiguration.loadConfiguration(pf);
         
         String pn = p.getName();
@@ -32,7 +32,7 @@ public class PlayerFile {
         config.set("life", p.getHealth());
         config.set("hunger", p.getFoodLevel());
         config.set("sat", (double) p.getSaturation());
-        config.set("exp", p.getExpToLevel());
+        config.set("exp", p.getLevel());
         config.set("god", godListener.isIngodMode(p));
         config.set("fly", p.getAllowFlight());
         try{
@@ -66,7 +66,8 @@ public class PlayerFile {
         File dir = new File(JGutils.getInstance().getDataFolder() + File.separator + "Players" + File.separator);
         TreeMap<Integer, File> tm = new TreeMap<Integer, File>();
         for(File f : dir.listFiles()){
-            tm.put(StringUtils.getLevenshteinDistance(f.getName(), s), f);
+            FileConfiguration config = YamlConfiguration.loadConfiguration(f);
+            tm.put(StringUtils.getLevenshteinDistance(config.getString("name"), s), f);
         }
         if(tm.firstEntry().getKey() < 16)
             return tm.firstEntry().getValue();

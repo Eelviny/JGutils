@@ -34,7 +34,7 @@ public class TeleportAction {
     final static String DENY_MESSAGE = Messages.get("jgutils.tp.deny");
     final static String OTHER_DENY_MESSAGE = Messages.get("jgutils.tp.otherdeny");
     
-    final static String NONE = Messages.get("jgutils.noperm");
+    final static String NONE = Messages.get("jgutils.tp.none");
     
     final static String NO_PERM = Messages.get("jgutils.noperm");
     final static String NO_PLAYER = Messages.get("jgutils.existnoplayer");
@@ -48,7 +48,23 @@ public class TeleportAction {
             if(sender instanceof Player){
                 Player p = (Player) sender;
                 if(sender.hasPermission("jgutils.teleport")){
-                    if(args.length == 2){
+                    if(args.length == 1){
+                        Player to  = args[0].equalsIgnoreCase("me") ? p : findMatch(args[0], sender);
+                        if(to != null){
+                            if(sender.hasPermission("jgutils.teleport.norequest")){
+                                p.teleport(to.getLocation());
+                            }else{
+                                if(pendingRequests.containsKey(p))
+                                    pendingRequests.get(p).add(new Request(p, to));
+                                else{
+                                    pendingRequests.put(p, new ArrayList<Request>());
+                                    pendingRequests.get(p).add(new Request(p, to));
+                                }
+                                sender.sendMessage(SEND_MESSAGE.replace("%p%", to.getName()));
+                                to.sendMessage(FROM_OTHER_SEND_MESSAGE.replace("%p%", p.getName()));
+                            }
+                        }else return;
+                    }else if(args.length == 2){
                         Player going  = args[0].equalsIgnoreCase("me") ? p : findMatch(args[0], sender);
                         Player to  = args[1].equalsIgnoreCase("me") ? p : findMatch(args[1], sender);
                         
@@ -113,10 +129,10 @@ public class TeleportAction {
                 if(sender.hasPermission("jgutils.teleport")){
                     if(args.length == 0){
                         if(pendingRequests.containsKey(p) && !pendingRequests.get(p).isEmpty()){
-                           sender.sendMessage("&2 Pending Requests:");
-                           if(pendingRequests.get(p).isEmpty())  sender.sendMessage("&cNo Pending Requests");
+                           sender.sendMessage("§2 Pending Requests:");
+                           if(pendingRequests.get(p).isEmpty())  sender.sendMessage("§cNo Pending Requests");
                            for(Request r: pendingRequests.get(p)){
-                               sender.sendMessage(("&8   -&3"+r.getGoing().getName()+" to "+r.getTo().getName())
+                               sender.sendMessage(("&§   -§3"+r.getGoing().getName()+" to "+r.getTo().getName())
                                        .replace(p.getName(), "You"));
                            }
                         }else sender.sendMessage(NONE);
@@ -128,9 +144,15 @@ public class TeleportAction {
                 Player p = (Player) sender;
                 if(sender.hasPermission("jgutils.teleport.tppos")){
                     try{
-                    p.teleport(new Location(Bukkit.getWorld(args[3]), Integer.valueOf(args[0]),
-                                            Integer.valueOf(args[1]), Integer.valueOf(args[2])));
-                    }catch(Exception e){ sender.sendMessage(TPP_USAGE);}
+                        Location l = p.getLocation();
+                    int X = args[0].contains("~") ? Integer.valueOf(args[0].replace("~", "0"))+(int)l.getX() : Integer.valueOf(args[0]);
+                    int Y = args[1].contains("~") ? Integer.valueOf(args[1].replace("~", "0"))+(int)l.getY() : Integer.valueOf(args[1]);
+                    int Z = args[2].contains("~") ? Integer.valueOf(args[2].replace("~", "0")+(int)l.getZ()) : Integer.valueOf(args[2]);
+                    
+                    p.teleport(new Location(Bukkit.getWorld(args[3]), X, Y, Z).add(.5, 0, .5));
+                    
+                    }catch(Exception e){ sender.sendMessage(TPP_USAGE);
+                    e.printStackTrace();}
                 }else sender.sendMessage(NO_PERM);
             }else sender.sendMessage(NOT_PLAYER);
         }

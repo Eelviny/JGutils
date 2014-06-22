@@ -27,12 +27,20 @@ public class KickListener implements Listener {
             public void run(){
                  e.getPlayer().kickPlayer(KICK_MESSAGE);
             }}, 3);
-          
+          e.setJoinMessage(null);
        }
     }
     
     public static void kick(Player p){
         kicked.add(p.getUniqueId());
         p.kickPlayer(KICK_MESSAGE);
+    }
+    
+    public static boolean iskicked(Player p){
+        return kicked.contains(p);
+    }
+    
+    public static void unkick(Player p){
+        kicked.remove(p.getUniqueId());
     }
 }

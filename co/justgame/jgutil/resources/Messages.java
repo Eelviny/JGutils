@@ -81,14 +81,18 @@ public class Messages {
         
         setMessage("jgutils.kick.info", "&cKicked %p%!");
         setMessage("jgutils.kick.message", "&8Your Kick Message Here!");
-        setMessage("jgutils.kick.usage", "&cUsage: /kick <Player>");
+        setMessage("jgutils.kick.usage", "&cUsage: /rmplayer <Player>");
+        
+        setMessage("jgutils.unkick.info", "&cRemoved %p% from kicked list!");
+        setMessage("jgutils.unkick.usage", "&cUsage: /raplayer <Player>");
+        setMessage("jgutils.unkick.not", "&c%p% is not kicked!");
         
         setMessage("jgutils.suicide.usage", "&cUsage: /suicide");
         
         setMessage("jgutils.kill.message", "&cYou killed %p%!");
         setMessage("jgutils.kill.usage", "&cUsage: /kill <Player>");
         
-        setMessage("jgutils.lookup.usage", "&cUsage: /lookup");
+        setMessage("jgutils.lookup.usage", "&cUsage: /lookup <Player>");
         
         setMessage("jgutils.tp.usage.tp", "&cUsage: /tp <Player> <Player>");
         setMessage("jgutils.tp.usage.tpa", "&cUsage: /tpaccept");
@@ -109,6 +113,15 @@ public class Messages {
         
         setMessage("jgutils.tp.deny", "&c%p% denied teleport request!");
         setMessage("jgutils.tp.otherdeny", "&cDenied teleport from %p%!");
+        
+        setMessage("jgutils.freeze.othermessage", "&f** &bYou have been Frozen! &f**");
+        setMessage("jgutils.freeze.message", "&9You froze %p%!");
+        setMessage("jgutils.freeze.usage", "&cUsage: /freeze <Player>");
+        
+        setMessage("jgutils.unfreeze.othermessage", "&7~~ &cYou have been Melted! &7~~");
+        setMessage("jgutils.unfreeze.message", "&cYou melted %p%!");
+        setMessage("jgutils.unfreeze.not", "&c%p% is not frozen!");
+        setMessage("jgutils.unfreeze.usage", "&cUsage: /unfreeze <Player>");
 
 
         try{

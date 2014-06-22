@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import co.justgame.jgutil.action.Action;
+import co.justgame.jgutil.action.FreezeListener;
 import co.justgame.jgutil.action.KickListener;
 import co.justgame.jgutil.action.LookupLogoutListener;
 import co.justgame.jgutil.action.TeleportAction;
@@ -30,6 +31,7 @@ public class JGutils extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new Listeners(), this);
         getServer().getPluginManager().registerEvents(new godListener(), this);
         getServer().getPluginManager().registerEvents(new KickListener(), this);
+        getServer().getPluginManager().registerEvents(new FreezeListener(), this);
         getServer().getPluginManager().registerEvents(new LookupLogoutListener(), this);
         
         config = this.getConfig();

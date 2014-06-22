@@ -27,7 +27,7 @@ public class LookupAction {
                     Messages.sendMultilineMessage(sender, toString(op.getName(), op.getUniqueId().toString(),
                                        loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName(), 
                                        op.getGameMode().name(), op.getHealth(), op.getFoodLevel(),
-                                       op.getSaturation(), op.getExpToLevel(),
+                                       op.getSaturation(), op.getLevel(),
                                        godListener.isIngodMode(op), op.getAllowFlight()));
                 }else if(ps.size() == 0){
                     String s = PlayerFile.readPlayerFile(args[0]);
@@ -53,9 +53,9 @@ public class LookupAction {
                                             "§8   FlyMode:§3 " +StringUtils.capitalize(String.valueOf(fly))+ "/n"+
                                             "§8   Level:§3 " +level+ "/n");
         
-        if(!gm.equalsIgnoreCase("CREATIVE")) s.append("§8   Health:§3 " +life+ "/n"+
-                                                      "§8   Hunger:§3 " +hunger+ "/n"+
-                                                      "§8   Saturation:§3 " +saturation+ "/n");
+        if(!gm.equalsIgnoreCase("CREATIVE")) s.append("§8   Health:§3 " +life+ "/20.0/n"+
+                                                      "§8   Hunger:§3 " +hunger+ "/20/n"+
+                                                      "§8   Saturation:§3 " +saturation+ "/5.0/n");
         
         return s.toString();
         

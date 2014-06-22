@@ -17,6 +17,8 @@ public class Action {
             AccountAction.fire(sender, args); break;
         case"chat":
             ChatAction.fire(sender, args); break;
+        case"claim":
+            ClaimAction.fire(sender, args); break;
         case"navigation":
             NavAction.fire(sender, args); break;
         case"website":
@@ -29,6 +31,10 @@ public class Action {
             FlyAction.fire(sender, args); break;
         case"god":
             godAction.fire(sender, args); break;
+        case"freeze":
+            FreezeAction.fire(sender, args); break;
+        case"unfreeze":
+            UnFreezeAction.fire(sender, args); break;
         case"lookup":
             LookupAction.fire(sender, args); break;
         case"tp":
@@ -41,6 +47,8 @@ public class Action {
             DespawnAction.fire(sender, args); break;
         case"rmplayer":
            KickAction.fire(sender, args); break;
+        case"raplayer":
+            UnKickAction.fire(sender, args); break;
         }
     }
 }

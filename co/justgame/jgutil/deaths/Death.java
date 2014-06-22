@@ -1,8 +1,5 @@
 package co.justgame.jgutil.deaths;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,8 +45,6 @@ abstract class Death implements Runnable{
     }
     
     protected void emptyPlayerInven(){
-        JGutils.getInstance().getServer().getPluginManager().callEvent(new PlayerDeathEvent(p, 
-               new ArrayList<ItemStack>(Arrays.asList(p.getInventory().getContents())), p.getExpToLevel(), null));
         
         for(ItemStack it: p.getInventory().getContents()){
             if(it != null) p.getLocation().getWorld().dropItemNaturally(p.getLocation(), it);
