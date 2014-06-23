@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import co.justgame.jgutil.main.JGutils;
 
 public class PlayerFile {
-    public static void savePlayerFile(Player p){
+    public static void savePlayerFile(Player p, String d){
         File pf = createPlayerFile(p.getUniqueId().toString(), true);
         FileConfiguration config = YamlConfiguration.loadConfiguration(pf);
         
@@ -28,6 +28,7 @@ public class PlayerFile {
         config.set("loc.z", loc.getZ());
         config.set("loc.world", loc.getWorld().getName());
         
+        config.set("login", d);
         config.set("mode", StringUtils.capitalize(p.getGameMode().name().toLowerCase()));
         config.set("life", p.getHealth());
         config.set("hunger", p.getFoodLevel());
@@ -51,7 +52,7 @@ public class PlayerFile {
                 FileConfiguration config = YamlConfiguration.loadConfiguration(pf);
                 return LookupAction.toString(config.getString("name"), config.getString("uuid"),
                                              config.getDouble("loc.x"), config.getDouble("loc.y"),
-                                             config.getDouble("loc.z"), config.getString("loc.world"),
+                                             config.getDouble("loc.z"), config.getString("loc.world"), config.getString("login"),
                                              config.getString("mode"), config.getDouble("life"), 
                                              config.getInt("hunger"), (float) config.getDouble("sat"), 
                                              config.getInt("exp"), config.getBoolean("god"), config.getBoolean("fly"));

@@ -100,10 +100,10 @@ public class TeleportAction {
                             r.getGoing().teleport(r.getTo().getLocation());
                             pendingRequests.get(p).remove(r);
                             Player other = r.getGoing() == p ? r.getTo() : r.getGoing();
-                            sender.sendMessage(ACCEPT_MESSAGE.replace("%p%", other.getName()));
-                            if(other == r.getGoing()) 
-                                other.sendMessage(TO_OTHER_ACCEPT_MESSAGE.replace("%p%", p.getName()));
-                            else other.sendMessage(FROM_OTHER_ACCEPT_MESSAGE.replace("%p%", p.getName()));
+                            other.sendMessage(ACCEPT_MESSAGE.replace("%p%", p.getName()));
+                            if(p == r.getGoing()) 
+                                p.sendMessage(TO_OTHER_ACCEPT_MESSAGE.replace("%p%", other.getName()));
+                            else p.sendMessage(FROM_OTHER_ACCEPT_MESSAGE.replace("%p%", other.getName()));
                         }else sender.sendMessage(NONE);
                     }else sender.sendMessage(TPA_USAGE);
                 }else sender.sendMessage(NO_PERM);
@@ -116,11 +116,9 @@ public class TeleportAction {
                         if(pendingRequests.containsKey(p) && !pendingRequests.get(p).isEmpty()){
                             Request r = pendingRequests.get(p).get(0);
                             pendingRequests.get(p).remove(r);
-                            r.getGoing().teleport(r.getTo().getLocation());
-                            pendingRequests.get(p).remove(r);
                             Player other = r.getGoing() == p ? r.getTo() : r.getGoing();
-                            sender.sendMessage(DENY_MESSAGE.replace("%p%", other.getName()));
-                            other.sendMessage(OTHER_DENY_MESSAGE.replace("%p%", p.getName()));
+                            other.sendMessage(DENY_MESSAGE.replace("%p%", p.getName()));
+                            p.sendMessage(OTHER_DENY_MESSAGE.replace("%p%", other.getName()));
                         }else sender.sendMessage(NONE);
                     }else sender.sendMessage(TPD_USAGE);
                 }else sender.sendMessage(NO_PERM);

@@ -26,6 +26,7 @@ public class LookupAction {
                     Location loc = op.getLocation();
                     Messages.sendMultilineMessage(sender, toString(op.getName(), op.getUniqueId().toString(),
                                        loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName(), 
+                                       LookupLogoutListener.getLastLogin(op),
                                        op.getGameMode().name(), op.getHealth(), op.getFoodLevel(),
                                        op.getSaturation(), op.getLevel(),
                                        godListener.isIngodMode(op), op.getAllowFlight()));
@@ -39,19 +40,21 @@ public class LookupAction {
         else sender.sendMessage(NO_PERM);   
     }
     
-    public static String toString(String name, String UUID, double X, double Y, double Z, String world, String gm, double life, 
+    public static String toString(String name, String UUID, double X, double Y, double Z, String world, String d, String gm, double life, 
             int hunger, float saturation, int level, boolean godMode, boolean fly){
+        
         StringBuilder s = new StringBuilder("§2" + StringUtils.capitalize(name) + ":/n" +
-                                            "§8   UUID:§3 " + UUID + "/n" +
-                                            "§8   Location:/n" +
-                                            "§7      X:§3 " +X+ "/n" +
-                                            "§7      Y:§3 " +Y+ "/n" +
-                                            "§7      Z:§3 " +Z+ "/n" +
-                                            "§7      World:§3 " +world+ "/n" +
-                                            "§8   GameMode:§3 " +StringUtils.capitalize(gm.toLowerCase())+ "/n"+
-                                            "§8   godMode:§3 " +StringUtils.capitalize(String.valueOf(godMode))+ "/n"+
-                                            "§8   FlyMode:§3 " +StringUtils.capitalize(String.valueOf(fly))+ "/n"+
-                                            "§8   Level:§3 " +level+ "/n");
+                                                "§8   UUID:§3 " + UUID + "/n" +
+                                                "§8   Last Login:§3 " + d + "/n" +
+                                                "§8   Location:/n" +
+                                                "§7      X:§3 " +Math.round(X)+ "/n" +
+                                                "§7      Y:§3 " +Math.round(Y)+ "/n" +
+                                                "§7      Z:§3 " +Math.round(Z)+ "/n" +
+                                                "§7      World:§3 " +world+ "/n" +
+                                                "§8   GameMode:§3 " +StringUtils.capitalize(gm.toLowerCase())+ "/n"+
+                                                "§8   godMode:§3 " +StringUtils.capitalize(String.valueOf(godMode))+ "/n"+
+                                                "§8   FlyMode:§3 " +StringUtils.capitalize(String.valueOf(fly))+ "/n"+
+                                                "§8   Level:§3 " +level+ "/n");
         
         if(!gm.equalsIgnoreCase("CREATIVE")) s.append("§8   Health:§3 " +life+ "/20.0/n"+
                                                       "§8   Hunger:§3 " +hunger+ "/20/n"+

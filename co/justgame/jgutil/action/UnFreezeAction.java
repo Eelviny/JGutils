@@ -23,7 +23,7 @@ public class UnFreezeAction {
     public static void fire(CommandSender sender, String[] args){
         if(sender instanceof Player){
             if(args.length == 1){
-                if(sender.hasPermission("jgutils.kill")){
+                if(sender.hasPermission("jgutils.freeze")){
                     List<Player> ps = Bukkit.matchPlayer(args[0]);
                     if(ps.size() == 1){
                         Player op = ps.get(0);
