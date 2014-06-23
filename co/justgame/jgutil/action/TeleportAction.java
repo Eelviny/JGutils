@@ -142,15 +142,14 @@ public class TeleportAction {
         }else if(cmd.getName().equalsIgnoreCase("tppos")){
             if(sender instanceof Player){
                 Player p = (Player) sender;
-                if(sender.hasPermission("jgutils.teleport.tppos")){
-                    try{
+                if(sender.hasPermission("jgutils.teleport.coords")){
+                    try{  
                         Location l = p.getLocation();
-                    int X = args[0].contains("~") ? Integer.valueOf(args[0].replace("~", "0"))+(int)l.getX() : Integer.valueOf(args[0]);
-                    int Y = args[1].contains("~") ? Integer.valueOf(args[1].replace("~", "0"))+(int)l.getY() : Integer.valueOf(args[1]);
-                    int Z = args[2].contains("~") ? Integer.valueOf(args[2].replace("~", "0")+(int)l.getZ()) : Integer.valueOf(args[2]);
-                    
-                    p.teleport(new Location(Bukkit.getWorld(args[3]), X, Y, Z).add(.5, 0, .5));
-                    
+                        int X = args[0].contains("~") ? Integer.valueOf(args[0].replace("~", "0"))+(int)l.getX() : Integer.valueOf(args[0]);
+                        int Y = args[1].contains("~") ? Integer.valueOf(args[1].replace("~", "0"))+(int)l.getY() : Integer.valueOf(args[1]);
+                        int Z = args[2].contains("~") ? Integer.valueOf(args[2].replace("~", "0")+(int)l.getZ()) : Integer.valueOf(args[2]);
+                        
+                        p.teleport(new Location(Bukkit.getWorld(args[3]), X, Y, Z).add(.5, 0, .5));
                     }catch(Exception e){ sender.sendMessage(TPP_USAGE);
                     e.printStackTrace();}
                 }else sender.sendMessage(NO_PERM);

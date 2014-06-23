@@ -56,7 +56,7 @@ public class LookupAction {
                                                 "§8   FlyMode:§3 " +StringUtils.capitalize(String.valueOf(fly))+ "/n"+
                                                 "§8   Level:§3 " +level+ "/n");
         
-        if(!gm.equalsIgnoreCase("CREATIVE")) s.append("§8   Health:§3 " +life+ "/20.0/n"+
+        if(!gm.equalsIgnoreCase("CREATIVE")) s.append("§8   Health:§3 " +Math.floor(life)+ "/20.0/n"+
                                                       "§8   Hunger:§3 " +hunger+ "/20/n"+
                                                       "§8   Saturation:§3 " +saturation+ "/5.0/n");
         
