@@ -11,6 +11,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+
+
+import com.spiny.pvpchoice.main.PVPChoice;
+
 import co.justgame.jgutil.main.JGutils;
 
 abstract class Death implements Runnable{
@@ -46,12 +50,18 @@ abstract class Death implements Runnable{
     
     protected void emptyPlayerInven(){
         
-        for(ItemStack it: p.getInventory().getContents()){
-            if(it != null) p.getLocation().getWorld().dropItemNaturally(p.getLocation(), it);
-        }
-        for(ItemStack it: p.getInventory().getArmorContents()){
-            if(it.getType() != Material.AIR) p.getLocation().getWorld().dropItemNaturally(p.getLocation(), it);
-        }
+            for(ItemStack it: p.getInventory().getContents())
+                if(Bukkit.getPluginManager().getPlugin("PVPChoice") != null){
+                    if(it != null) PVPChoice.dropItems(p.getLocation(), p, it);
+                }else
+                    if(it != null) p.getLocation().getWorld().dropItemNaturally(p.getLocation(), it);
+            
+            for(ItemStack it: p.getInventory().getArmorContents())
+                if(Bukkit.getPluginManager().getPlugin("PVPChoice") != null){
+                    if(it.getType() != Material.AIR) PVPChoice.dropItems(p.getLocation(), p, it);
+                }else
+                    if(it.getType() != Material.AIR) p.getLocation().getWorld().dropItemNaturally(p.getLocation(), it);
+        
             p.getInventory().clear();
             p.getInventory().setArmorContents(new ItemStack[4]);
     }
