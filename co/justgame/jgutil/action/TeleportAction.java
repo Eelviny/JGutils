@@ -150,8 +150,7 @@ public class TeleportAction {
                         int Z = args[2].contains("~") ? Integer.valueOf(args[2].replace("~", "0")+(int)l.getZ()) : Integer.valueOf(args[2]);
                         
                         p.teleport(new Location(Bukkit.getWorld(args[3]), X, Y, Z).add(.5, 0, .5));
-                    }catch(Exception e){ sender.sendMessage(TPP_USAGE);
-                    e.printStackTrace();}
+                    }catch(Exception e){ sender.sendMessage(TPP_USAGE);}
                 }else sender.sendMessage(NO_PERM);
             }else sender.sendMessage(NOT_PLAYER);
         }

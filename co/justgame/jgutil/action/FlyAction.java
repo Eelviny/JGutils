@@ -36,7 +36,7 @@ public class FlyAction {
             else sender.sendMessage(NO_PERM);
         }else if(args.length == 1){
             if(sender instanceof Player){
-                if(sender.hasPermission("jgutils.fly.other")){
+                if(sender.hasPermission("jgutils.fly")){
                     Player p = (Player) sender;
                     double i = 0;
                     try{
