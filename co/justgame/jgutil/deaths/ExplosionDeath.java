@@ -1,5 +1,6 @@
 package co.justgame.jgutil.deaths;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class ExplosionDeath extends Death{
@@ -11,6 +12,7 @@ public class ExplosionDeath extends Death{
     @Override
     public void run(){
         super.run();
-        p.getLocation().getWorld().createExplosion(p.getLocation(), 10);
+        Location l = p.getLocation();
+        p.getLocation().getWorld().createExplosion(l.getX(), l.getY(), l.getZ(), 10, false, false);
     }
 }

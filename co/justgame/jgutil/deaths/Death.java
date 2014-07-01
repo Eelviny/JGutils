@@ -49,7 +49,7 @@ abstract class Death implements Runnable{
     }
     
     protected void emptyPlayerInven(){
-        
+            
             for(ItemStack it: p.getInventory().getContents())
                 if(Bukkit.getPluginManager().getPlugin("PVPChoice") != null){
                     if(it != null) PVPChoice.dropItems(p.getLocation(), p, it);
